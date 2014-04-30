@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ! $# == 1 ] ; then
+  echo "usage: $0 ipynb_file_name"
+  exit
+fi
+
+# to subshell in the background to start the server
+# {
+#  pkill -f 'python -m SimpleHTTPServer 8000'
+#  python -m SimpleHTTPServer 8000
+# } >/dev/null 2>&1 &
+
+ipython nbconvert $1.ipynb --to slides
+
+sed '/\body/i \
+<script>\
+Reveal.initialize({\
+  slideNumber: true,\
+  transition: "none"\
+});\
+</script>\
+' $1.slides.html > temp
+mv temp $1.slides.html
+
+open $1.slides.html
+
