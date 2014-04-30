@@ -13,15 +13,16 @@ fi
 
 ipython nbconvert $1.ipynb --to slides
 
-sed '/\body/i \
-<script>\
-Reveal.initialize({\
-  slideNumber: true,\
-  transition: "none"\
-});\
-</script>\
-' $1.slides.html > temp
-mv temp $1.slides.html
+# sed '/\body/i \
+# <script>\
+# Reveal.initialize({\
+#   slideNumber: true,\
+#   transition: "none",\
+#   center: false\
+# });\
+# </script>\
+# ' $1.slides.html > temp
+# mv temp $1.slides.html
 
 open $1.slides.html
 
