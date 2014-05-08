@@ -1,28 +1,35 @@
 #!/bin/bash
 
+# for previewing slides, while writing it
 if [ ! $# == 1 ] ; then
   echo "usage: $0 ipynb_file_name"
   exit
 fi
 
 # to subshell in the background to start the server
-# {
-#  pkill -f 'python -m SimpleHTTPServer 8000'
-#  python -m SimpleHTTPServer 8000
-# } >/dev/null 2>&1 &
+{
+  pkill -f 'python -m SimpleHTTPServer 8000'
+  python -m SimpleHTTPServer 8000
+} >/dev/null 2>&1 &
 
+# convert to .html
 ipython nbconvert $1.ipynb --to slides
 
-# sed '/\body/i \
-# <script>\
-# Reveal.initialize({\
-#   slideNumber: true,\
-#   transition: "none",\
-#   center: false\
-# });\
-# </script>\
-# ' $1.slides.html > temp
-# mv temp $1.slides.html
+# insert slide number and such
+sed '/\body/i \
+<script>\
+Reveal.initialize({\
+  slideNumber: true,\
+  transition: "none",\
+  center: false\
+});\
+</script>\
+' $1.slides.html > /tmp/$$
+mv /tmp/$$ $1.slides.html
 
+# show the slide
 open $1.slides.html
+
+# clean up
+pkill -f 'python -m SimpleHTTPServer 8000'
 
