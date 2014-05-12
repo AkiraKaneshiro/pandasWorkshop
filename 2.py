@@ -17,7 +17,7 @@
 
 # * NumPy ndarray is an array of `dtype` elements `shape`d. 
 
-# In[ ]:
+# In[103]:
 
 import numpy as np
 
@@ -27,7 +27,7 @@ rid, rid.dtype, rid.shape
 
 # * pandas `Series` is an ndarray with an `index` and `name`.
 
-# In[ ]:
+# In[104]:
 
 import pandas as pd
 
@@ -40,7 +40,7 @@ s1
 
 # Let's create another `Series`, age.
 
-# In[ ]:
+# In[105]:
 
 s2 = pd.Series([23, 20, 22], index=[0, 1, 3], name='age')
 s2
@@ -48,7 +48,7 @@ s2
 
 # * `DataFrame` is an aligned dictionary of `Series`'.
 
-# In[ ]:
+# In[106]:
 
 df = pd.DataFrame({s1.name: s1, s2.name: s2})
 df
@@ -58,17 +58,17 @@ df
 
 # * Important properties of `DataFrame` includes: `index` (row label or 'observation id') and `columns` (column labels or 'variable name').
 
-# In[ ]:
+# In[107]:
 
 df.index
 
 
-# In[ ]:
+# In[108]:
 
 df.columns
 
 
-# In[ ]:
+# In[109]:
 
 df.dtypes
 
@@ -82,7 +82,7 @@ df.dtypes
 # Create a data frame of Age Specific Fertility Rate (ASFR) for women in Republic of Korea (South Korea) and US, for 2000-2005. Age ranges and ASFRs for five-year age range for both countries are geven below. 
 # Data are from *UN World Population Prospect 2006*.
 
-# In[ ]:
+# In[110]:
 
 start = pd.Series(range(15, 46, 5))
 finish = start + 4
@@ -90,15 +90,17 @@ age_range = ['{0}-{1}'.format(s, f) for s, f in zip(start, finish)]
 age_range
 
 
-# In[ ]:
+# In[111]:
 
 korea = [3.2, 33.1, 119.9, 72.8, 16.8, 2.5, 0.2]
 usa = [43.7, 104.5, 114.5, 93.5, 42.8, 8.5, 0.5]
 
 
-# In[ ]:
+# In[112]:
 
 # create a DataFrame here.
+df = pd.DataFrame({'korea': korea, 'usa':usa}, index=age_range)
+df
 
 
 ### Creating DataFrame and I/O
@@ -114,7 +116,7 @@ usa = [43.7, 104.5, 114.5, 93.5, 42.8, 8.5, 0.5]
 
 # Below is an example of the `DataFrame` constructor taking in a list of tuples.
 
-# In[ ]:
+# In[113]:
 
 df2 = pd.DataFrame([
   ('SNSD', 'female', 9),
@@ -150,7 +152,7 @@ df2
 #     2. Saving only the foreign rows into a JSON file (foreign.json); and then
 #     3. Read it back to `DataFrame` (df_foreign)
 
-# In[ ]:
+# In[114]:
 
 auto = pd.read_stata('auto.dta')
 auto.head(3)
@@ -158,7 +160,7 @@ auto.head(3)
 
 # Save the `columns` for the later use.
 
-# In[ ]:
+# In[115]:
 
 cols = auto.columns.copy()
 cols
@@ -166,7 +168,7 @@ cols
 
 # Select foreign makes only.
 
-# In[ ]:
+# In[116]:
 
 foreign = auto[auto.foreign == 'Foreign']
 foreign.head(3)
@@ -174,14 +176,14 @@ foreign.head(3)
 
 # And then write it out as a JSON string.
 
-# In[ ]:
+# In[117]:
 
 foreign.to_json('foreign.json')
 
 
 # Reading it back using the `read_json` method. While writing to JSON, the order of columns has  been changed. We fix it by re-indexing along the second axis (i.e. columns). And then show the first 3 rows.
 
-# In[ ]:
+# In[118]:
 
 df_foreign = pd.read_json('foreign.json')
 df_foreign.reindex_axis(cols, axis=1).head(3)
@@ -193,7 +195,7 @@ df_foreign.reindex_axis(cols, axis=1).head(3)
 
 # Recall when we get/set a value in a NumPy ndarray, we use an integer position (and zero-) based index.
 
-# In[ ]:
+# In[119]:
 
 import numpy as np
 
@@ -204,7 +206,7 @@ a = np.array([
 a[1,2] # get
 
 
-# In[ ]:
+# In[120]:
 
 a[1, 2] = 99 # set
 a
@@ -212,13 +214,13 @@ a
 
 # pandas data structures have *labels*, that can be non-integers. This permits us getting/setting via labels, in addition to doing so via integer positions. For instance,
 
-# In[ ]:
+# In[121]:
 
 s = pd.Series([0, 1, 2], index=['Abe', 'Betty', 'Caroline'])
 s
 
 
-# In[ ]:
+# In[122]:
 
 print 'via label.            s[\'Betty\']=', s['Betty']
 print 'via integer position. s[1]=', s[1]
@@ -231,7 +233,7 @@ print 'via integer position. s[1]=', s[1]
 # * a *label* (or index), then use `.loc`; 
 # * an integer *position*, then use `.iloc`.
 
-# In[ ]:
+# In[123]:
 
 print 'via integer position. s.loc[\'Betty\']=', s.loc['Betty']
 print 'via label.            s.iloc[1]=', s.iloc[1]
@@ -239,7 +241,7 @@ print 'via label.            s.iloc[1]=', s.iloc[1]
 
 # `.ix` permits both but assume it a label first, if not found, then a position. It is better to avoid it, if possible.
 
-# In[ ]:
+# In[124]:
 
 s.ix['Betty'], s.ix[1]
 
@@ -248,7 +250,7 @@ s.ix['Betty'], s.ix[1]
 # 
 # That is, given the following DataFrame. 
 
-# In[ ]:
+# In[125]:
 
 df = pd.DataFrame([
     (23, 'Abe'),
@@ -258,20 +260,20 @@ df = pd.DataFrame([
 df
 
 
-# In[ ]:
+# In[126]:
 
 df.loc['R1', 'age'], df.iloc[0, 0]
 
 
 # Setting a value is straight forward as well.
 
-# In[ ]:
+# In[127]:
 
 df.loc['R1', 'age'] = 100
 df
 
 
-# In[ ]:
+# In[128]:
 
 df.iloc[0,1] = 'Abraham'
 df
@@ -284,19 +286,19 @@ df
 # * Can take a slice with labels, i.e. 'age':'firstname'. Notice that both start and the stop parts are *inclusive*!!!
 # * Can take a boolean array.
 
-# In[ ]:
+# In[129]:
 
 df.loc['R1', 'age']
 
 
-# In[ ]:
+# In[130]:
 
 df.loc[['R1', 'R3'], ['age', 'firstname']]
 
 
 # Remember the *stop* part of a label slice is *inclusive*. That is, 'R2' row is *included* below.
 
-# In[ ]:
+# In[131]:
 
 df.loc['R1':'R2', 'age':'age']
 
@@ -311,17 +313,17 @@ df.loc['R1':'R2', 'age':'age']
 
 # Let's see the `df` again.
 
-# In[ ]:
+# In[132]:
 
 df
 
 
-# In[ ]:
+# In[133]:
 
 df.iloc[0, 1]
 
 
-# In[ ]:
+# In[134]:
 
 df.iloc[[0, 2], [0]]
 
@@ -330,7 +332,7 @@ df.iloc[[0, 2], [0]]
 
 # How many rows below returns? Assume that the DataFrame df has more than three rows.
 
-# In[ ]:
+# In[135]:
 
 df.iloc[0:2, :]
 
@@ -339,7 +341,7 @@ df.iloc[0:2, :]
 
 # * A simple bracketed slice gets/sets the rows.
 
-# In[ ]:
+# In[136]:
 
 df2 = df[:2]
 df2
@@ -347,7 +349,7 @@ df2
 
 # * A simple bracketed column name (or list of names), gets/sets the columns.
 
-# In[ ]:
+# In[137]:
 
 df2 = df[['firstname', 'age']] # col order changed
 df2
@@ -355,7 +357,7 @@ df2
 
 # Here is an Python-like idiom of swapping columns in a DataFrame. In this case, it is rather silly. :-)
 
-# In[ ]:
+# In[138]:
 
 df[['firstname', 'age']] = df[['age', 'firstname']]
 df
@@ -365,7 +367,7 @@ df
 
 # Given a DataFrame df1, create another, df2, which looks like df3.
 
-# In[ ]:
+# In[139]:
 
 rows = range(3)
 cols = list('ABCDE')
@@ -373,7 +375,7 @@ df1 = pd.DataFrame(np.arange(15).reshape(3,5), index=rows, columns=cols)
 df1
 
 
-# In[ ]:
+# In[140]:
 
 df3 = pd.DataFrame([
     ( 0,  1,  -2, 23),
@@ -384,7 +386,7 @@ df3
 
 # An answer:
 
-# In[ ]:
+# In[141]:
 
 df2 = df1.loc[0:2:2, 'A':'C']
 df2['C'] *= -1
@@ -396,24 +398,24 @@ all(df2 == df3)
 
 # * Recall that `None` is a Python universal object. It is a placeholder and often evaluated as False, but it compares itself True.
 
-# In[ ]:
+# In[142]:
 
 None, type(None), None == None
 
 
 # * `np.nan` is also a placeholder. It is of a float type, representing 'Not a Number', something like log(-1). It *always* compares `False`, including being compared to itself, of which is the defining characteristic. Use `np.isnan()` to identify a value is np.nan.
 
-# In[ ]:
+# In[143]:
 
 np.log(-1), type(np.nan)
 
 
-# In[ ]:
+# In[144]:
 
 np.nan < 1.0, np.nan >= 1.0, np.nan == np.nan
 
 
-# In[ ]:
+# In[145]:
 
 np.nan != np.nan, np.isnan(np.nan)
 
@@ -422,7 +424,7 @@ np.nan != np.nan, np.isnan(np.nan)
 
 # pandas automatically promotes int `dtype` to a float, when there is an np.nan within a Series. Similarly, boolean `dtype` is cast to object. Here is an example of the former.
 
-# In[ ]:
+# In[146]:
 
 left = pd.DataFrame({'a': [23, 13, 25, 42]}, index=range(4))
 right = pd.DataFrame({'b': [11, 11, 11]}, index=[0, 2, 3])
@@ -435,31 +437,31 @@ print together.dtypes
 
 # * pandas provide `isnull()` and `notnull()` functions to identify missing values. They return booleans. 
 
-# In[ ]:
+# In[147]:
 
 df = pd.DataFrame(np.log(-np.eye(3)))
 df
 
 
-# In[ ]:
+# In[148]:
 
 pd.isnull(df)
 
 
-# In[ ]:
+# In[149]:
 
 pd.notnull(df)
 
 
 # * `dropna()`, removes either columns (axis=1) or rows (axis=0) with *any* missing values. 
 
-# In[ ]:
+# In[150]:
 
 df.iloc[1,1] = 23
 df
 
 
-# In[ ]:
+# In[151]:
 
 dropped = df.dropna(axis=0)
 dropped
@@ -467,7 +469,7 @@ dropped
 
 # * When filling the missing values, `fillna()` and `interpolate()` come in handy.
 
-# In[ ]:
+# In[152]:
 
 df = pd.DataFrame(np.arange(18.).reshape(6, 3), columns=list('abc'))
 df.iloc[2:4, [0, 2]] = np.nan
@@ -475,9 +477,9 @@ df.iloc[1, 1] = np.nan
 df
 
 
-# In[ ]:
+# In[153]:
 
-df['a'] = df['a'].interpolate(method='polynomial')
+df['a'] = df['a'].interpolate(method='polynomial', order=3)
 df['b'] = df['b'].fillna(999)
 df
 
@@ -490,7 +492,7 @@ df
 
 # First, we download a GDP per capita series and a fertility rate. The search method shows available series.
 
-# In[ ]:
+# In[154]:
 
 from pandas.io import wb
 
@@ -499,7 +501,7 @@ wb.search('fertility').iloc[:, :2]
 
 # Let's choose two series: one fore GDP per capita and another for Total Fertility Rate. We request all the available countries and some years.
 
-# In[ ]:
+# In[155]:
 
 ind = ['NY.GDP.PCAP.KD', 'SP.DYN.TFRT.IN']
 df = wb.download(indicator=ind, country='all', start=1950, end=2014)
@@ -507,7 +509,7 @@ df = wb.download(indicator=ind, country='all', start=1950, end=2014)
 
 # Shorten the column labels. and let's see the dataframe. It has a MultiIndex (or hierarchical index).
 
-# In[ ]:
+# In[156]:
 
 df.columns = ['gdp', 'tfr']
 df.head()
@@ -515,7 +517,7 @@ df.head()
 
 # Before we do anything, let's drop any rows that has missing values, and convert both columns to numbers.
 
-# In[ ]:
+# In[157]:
 
 df = df.dropna()
 df = df.convert_objects(convert_numeric=True)
@@ -525,14 +527,14 @@ df.dtypes
 
 # How many records do we have? We can get summary data using `describe()` method.
 
-# In[ ]:
+# In[158]:
 
 df.describe()
 
 
 # Let's now try some group by using the multiIndex we have. Let's aggregate our data at the country level by calculating a mean over years within each country. Amazinly, it is just one line.
 
-# In[ ]:
+# In[159]:
 
 country = df.groupby(level=['country']).mean()
 print country.describe()
@@ -540,7 +542,7 @@ print country.describe()
 
 # We save the country data file locally, only after we sort it by the gdp.
 
-# In[ ]:
+# In[160]:
 
 country.sort(columns=['gdp'], axis=0, inplace=True)
 country.to_pickle('country.pkl')
@@ -548,7 +550,7 @@ country.to_pickle('country.pkl')
 
 # We can graph gdp and tfr together, 
 
-# In[ ]:
+# In[161]:
 
 country = pd.read_pickle('country.pkl')
 country['log_gdp'] = np.log(country['gdp'])
@@ -559,7 +561,7 @@ plt.scatter(country['tfr'], country['log_gdp'])
 
 # Another way is to aggregate over countries, so that we end up with yearly data. Aggregation is simple using group by again.
 
-# In[ ]:
+# In[162]:
 
 df = pd.read_pickle('df.pkl')
 year = df.groupby(level='year').mean()
@@ -572,8 +574,9 @@ year.plot()
 
 # Suppose that we separate out before and after year 2000 into two datasets, like so. It happened that the index is now a list of Unicode strings.
 
-# In[ ]:
+# In[163]:
 
+import pandas as pd
 upto2000 = year.loc[:u'2000']
 after2000 = year.loc[u'2001':]
 print upto2000.tail(3), '\n', after2000.head(3)
@@ -581,13 +584,13 @@ print upto2000.tail(3), '\n', after2000.head(3)
 
 # Both `pd.concat()` or `df.append()` can put them together.
 
-# In[ ]:
+# In[164]:
 
 yearAgain = pd.concat([upto2000, after2000])
 print yearAgain.head(3), '\n', yearAgain.tail(3)
 
 
-# In[ ]:
+# In[165]:
 
 yearAgain2 = upto2000.append(after2000)
 print yearAgain2.head(3), '\n', yearAgain.tail(3)

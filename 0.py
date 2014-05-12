@@ -15,7 +15,7 @@
 
 # * Dimensions are called `axes`. The number of axes is `rank`.
 
-# In[ ]:
+# In[1]:
 
 import numpy as np
 
@@ -23,12 +23,12 @@ a = np.array([[0, 1, 2], [3, 4, 5]])   # a 2D, 2 x 3, array
 a
 
 
-# In[ ]:
+# In[2]:
 
 a.dtype
 
 
-# In[ ]:
+# In[3]:
 
 a.shape
 
@@ -37,7 +37,7 @@ a.shape
 
 # Get a (element) value via integer index.
 
-# In[ ]:
+# In[4]:
 
 a = np.array([[0, 1, 2], [3, 4, 5]])
 a[0, 2]
@@ -45,7 +45,7 @@ a[0, 2]
 
 # Set an element.
 
-# In[ ]:
+# In[5]:
 
 a[0, 2] = 99
 a                  
@@ -57,7 +57,7 @@ a
 
 # Multiplication just repeats.
 
-# In[ ]:
+# In[6]:
 
 L1 = [2, 3]
 2 * L1
@@ -65,7 +65,7 @@ L1 = [2, 3]
 
 # Addition concatenates.
 
-# In[ ]:
+# In[7]:
 
 L1 = [2, 3]
 L2 = [5, 6]
@@ -74,13 +74,13 @@ L1 + L2
 
 ### NumPy `ndarray` provides element-wise operations.
 
-# In[ ]:
+# In[8]:
 
 x = np.array([2, 3])   # error if (2, 3) 
 2 * x
 
 
-# In[ ]:
+# In[9]:
 
 y = np.array([5, 6])
 x + y
@@ -88,7 +88,7 @@ x + y
 
 ### Familiar mathematical functions (`ufunc`'s) operate element-wise, as well.
 
-# In[ ]:
+# In[10]:
 
 x = np.array([1.0, 2.0, 3.0])
 np.exp(x), np.sqrt(x), np.log(x)
@@ -98,13 +98,13 @@ np.exp(x), np.sqrt(x), np.log(x)
 
 ### NumPy array creation
 
-# In[ ]:
+# In[11]:
 
 a = np.array([2, 3, 4], dtype=float)  # from list
 a, a.dtype, a.shape            
 
 
-# In[ ]:
+# In[12]:
 
 b = np.arange(10)   # short-cut for np.array(range(...))
 b
@@ -112,19 +112,19 @@ b
 
 ### Some convenient functions.
 
-# In[ ]:
+# In[13]:
 
 Z = np.zeros((2, 3))
 Z
 
 
-# In[ ]:
+# In[14]:
 
 Ones = np.ones((10,)) 
 Ones
 
 
-# In[ ]:
+# In[15]:
 
 I = np.eye(4)
 I
@@ -132,13 +132,13 @@ I
 
 # 5 evenly spaced numbers from 0.0 to 2.0, inclusive at both ends.
 
-# In[ ]:
+# In[16]:
 
 x = np.linspace(0.0, 2.0, 5)
 x
 
 
-# In[ ]:
+# In[17]:
 
 get_ipython().magic(u'matplotlib inline')
 import matplotlib.pyplot as plt
@@ -150,7 +150,7 @@ plt.plot(x, y)
 
 ### Many unary operations are implemented as methods.
 
-# In[ ]:
+# In[18]:
 
 np.random.seed(12345)
 a = np.random.random((2, 4))
@@ -159,52 +159,52 @@ a
 
 # Sum of all elements, regardless of shape.
 
-# In[ ]:
+# In[19]:
 
 a.sum()
 
 
 # Sum of each column.
 
-# In[ ]:
+# In[20]:
 
 a.sum(axis=0)
 
 
 # Sum of each row.
 
-# In[ ]:
+# In[21]:
 
 a.sum(axis=1)
 
 
 ### Changing the shape
 
-# In[ ]:
+# In[22]:
 
 c = np.arange(10) 
 c
 
 
-# In[ ]:
+# In[23]:
 
 c.shape = (5, 2)
 c
 
 
-# In[ ]:
+# In[24]:
 
 d = c.T # transpose() also works
 d
 
 
-# In[ ]:
+# In[25]:
 
 f = d.flatten() # ravel() also flattens
 f
 
 
-# In[ ]:
+# In[26]:
 
 f = np.array([0, 2, 4, 6, 8, 1, 3, 5, 7, 9])
 g = f.reshape(5, 2)
@@ -215,7 +215,7 @@ g
 
 ### Slicing works as expected, but returns a view.
 
-# In[ ]:
+# In[27]:
 
 a = np.arange(15).reshape(3, 5)
 a
@@ -223,7 +223,7 @@ a
 
 # A view of the third row and all columns.
 
-# In[ ]:
+# In[28]:
 
 v = a[2, :]
 v
@@ -231,7 +231,7 @@ v
 
 # Change a value of a view like so:
 
-# In[ ]:
+# In[29]:
 
 v[0] = 999
 v
@@ -239,14 +239,14 @@ v
 
 # You change the underlying array data as well.
 
-# In[ ]:
+# In[30]:
 
 a
 
 
 ### In order to create an independent copy, use copy() method.
 
-# In[ ]:
+# In[31]:
 
 b = a.copy()
 b[2, 0] = 888
@@ -255,21 +255,21 @@ b
 
 # a remains unchanged.
 
-# In[ ]:
+# In[32]:
 
 a 
 
 
 ### Boolean indexing returns an array and works great for setting some cells to certain values.
 
-# In[ ]:
+# In[33]:
 
 b = a.copy()
 idx = np.logical_or(b == 9, b == 999)
 idx
 
 
-# In[ ]:
+# In[34]:
 
 b[idx] = 0
 b
@@ -277,7 +277,7 @@ b
 
 # Selecting the first and the third rows.
 
-# In[ ]:
+# In[35]:
 
 idx = np.array([True, False, True])
 r = b[idx, :]
@@ -286,47 +286,47 @@ r
 
 ### For matrix multiplication, use `np.dot`.
 
-# In[ ]:
+# In[36]:
 
 M = np.arange(6.0).reshape(3,2)
 M
 
 
-# In[ ]:
+# In[37]:
 
 N = 2 * M.T
 N
 
 
-# In[ ]:
+# In[38]:
 
 M * N
 
 
-# In[ ]:
+# In[39]:
 
 np.dot(M, N)
 
 
 ### One dimensional array is a one dimensional array.
 
-# In[ ]:
+# In[40]:
 
 v = np.ones(2.,)
 v
 
 
-# In[ ]:
+# In[41]:
 
 np.all(v == v.T)
 
 
-# In[ ]:
+# In[42]:
 
 M, v
 
 
-# In[ ]:
+# In[43]:
 
 np.dot(M, v)
 
@@ -345,7 +345,7 @@ np.dot(M, v)
 
 # The function, `randint(a, b)`, returns an integer from the range `a` to `b`, inclusive at both ends.
 
-# In[ ]:
+# In[44]:
 
 import random
 
@@ -384,7 +384,7 @@ plt.plot(T, walk)
 
 # The NumPy `randint(low, high)` returns an integer from low (inclusive) to high (exclusive).
 
-# In[ ]:
+# In[45]:
 
 np.random.seed(1234) 
 T = range(21)        
@@ -405,7 +405,7 @@ plt.plot(T, walk)
 # 
 # NumPy `ndarray`'s `argmax`() function returns the first index of the maximum value. We are re-using the above code, but are setting the arguments so that we are simulating a longer walk.
 
-# In[ ]:
+# In[46]:
 
 np.random.seed(1235)
 T = range(101)
@@ -429,7 +429,7 @@ plt.axvline(x = cross, color='red')
 # 
 # In our context, this means generating multiple walks. NumPy `ndarray` can have multiple axes or dimensions. We just introduce the second axis representing the repetition.
 
-# In[ ]:
+# In[47]:
 
 np.random.seed(1235) 
 T = xrange(1000)
@@ -455,7 +455,7 @@ plt.close()
 
 # Simulate 5,000 random walks, each of which runs from the position of 0 at $t == 0$ to $t == 700$. For each walk, find out the "crossing time" to +30 or -30, that is the first time when the position reaches either +30 or -30. Calculate the mean crossing time over all 3,000 random walks. Notice that not all the walks may reach $\pm 30$. In that case, use only those walks that ever reach $\pm 30$ within the given time $t <= 700$. Make sure to use a random seed so that the simulation can be replicated exactly.
 
-# In[ ]:
+# In[48]:
 
 # an answer
 get_ipython().magic(u'matplotlib inline')

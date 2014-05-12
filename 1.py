@@ -21,7 +21,7 @@
 
 # This is an `ndarray`.
 
-# In[ ]:
+# In[1]:
 
 import numpy as np
 import pandas as pd
@@ -32,13 +32,13 @@ data
 
 # This is an `ndarray`, super-charged.
 
-# In[ ]:
+# In[2]:
 
 s = pd.Series(data, index=['a', 'b', 'c', 'd'], name='mySeries')
 s
 
 
-# In[ ]:
+# In[3]:
 
 s.index
 
@@ -47,28 +47,28 @@ s.index
 
 # Get by an integer index:
 
-# In[ ]:
+# In[4]:
 
 s[0]
 
 
 # Slicing returns a view:
 
-# In[ ]:
+# In[5]:
 
 s3 = s[:3]
 s3[0] = 999
 s
 
 
-# In[ ]:
+# In[6]:
 
 s
 
 
 # Boolean indexing works, as well.
 
-# In[ ]:
+# In[7]:
 
 above_median = s[s > s.median()]
 above_median
@@ -76,12 +76,12 @@ above_median
 
 # Mathematical operations and functions are *vectorized*.
 
-# In[ ]:
+# In[8]:
 
 s ** 0.5
 
 
-# In[ ]:
+# In[9]:
 
 np.sqrt(s)
 
@@ -90,7 +90,7 @@ np.sqrt(s)
 
 # You can create a Series from a dictionary.
 
-# In[ ]:
+# In[10]:
 
 s = pd.Series({
     'Tom': 0,
@@ -104,20 +104,20 @@ s
 
 # In-place sort by value. Default is ascending=True.
 
-# In[ ]:
+# In[11]:
 
 s.sort()
 s
 
 
-# In[ ]:
+# In[12]:
 
 s
 
 
 # `sort_index()` returns a new Series, sorted by index.
 
-# In[ ]:
+# In[13]:
 
 t = s.sort_index()
 t
@@ -125,33 +125,33 @@ t
 
 ### Getting and setting are just like a dictionary.
 
-# In[ ]:
+# In[14]:
 
 s['Claudia'] = 23
 s
 
 
-# In[ ]:
+# In[15]:
 
 'Tom' in s
 
 
 # Use `np.nan` for default value for `get()`. Otherwise, `get()` will return `None`, when not found.
 
-# In[ ]:
+# In[16]:
 
 s.get('NOBODY', np.nan)
 
 
 ### `Series` automatically *aligns* data based on index.
 
-# In[ ]:
+# In[17]:
 
 s1 = pd.Series({'a':1, 'b':2, 'c':3})
 s1
 
 
-# In[ ]:
+# In[18]:
 
 s2 = pd.Series({'b':20, 'c':10, 'd':9})
 s2
@@ -159,7 +159,7 @@ s2
 
 # The resulting index is a *union* of the input indices.
 
-# In[ ]:
+# In[19]:
 
 s = s1 + s2
 s
@@ -167,7 +167,7 @@ s
 
 # Missing values (`np.nan` and `None`) can be dropped easily.
 
-# In[ ]:
+# In[20]:
 
 s.dropna()
 
@@ -182,7 +182,7 @@ s.dropna()
 
 # Download an excel file from CDC's ftp site and write it locally. `urllib.urlretrieve()` returns a tuple of (local) filename, and the header information, if successful.
 
-# In[ ]:
+# In[21]:
 
 import urllib
 
@@ -196,7 +196,7 @@ urllib.urlretrieve(ftp, xls)
 
 # Use zero-based indices for column and row numbers.
 
-# In[ ]:
+# In[22]:
 
 xls = 'white2009.xls'
 options = {'header': 2, 'parse_cols': [2], 'skiprows': 6, 'skip_footer': 2}
@@ -205,7 +205,7 @@ df = pd.read_excel(xls, 'Sheet1', **options)
 
 # We then copy only one column (Series) out of the DataFrame returned from `read_excel()`. Let's see first a few rows.
 
-# In[ ]:
+# In[23]:
 
 lx = df['l(x)'].copy()
 lx.head()
@@ -213,14 +213,14 @@ lx.head()
 
 # And the last a few rows.
 
-# In[ ]:
+# In[24]:
 
 lx.tail()
 
 
 ### We do some wrangling (munging, recoding, ...) and graphing
 
-# In[ ]:
+# In[25]:
 
 get_ipython().magic(u'matplotlib inline')
 
@@ -242,19 +242,19 @@ hx.plot(logy=True)
 
 ### Let's see how the Series, hx, looks:
 
-# In[ ]:
+# In[26]:
 
 hx.head()
 
 
-# In[ ]:
+# In[27]:
 
 hx.tail()
 
 
 ### Fit a line for those over 30 years old.
 
-# In[ ]:
+# In[28]:
 
 import statsmodels.api as sm
 
@@ -271,7 +271,7 @@ print 'R^2 : {:6.4f}'.format(result.rsquared)
 
 ### Finally, we graph.
 
-# In[ ]:
+# In[29]:
 
 # predicted value
 pred = model.predict(result.params).astype(np.float64, copy=False)
@@ -299,13 +299,13 @@ hf.plot(logy=True)
 # * made aware of the missing value (i.e., `np.nan`); and
 # * have names that starts with `.str`
 
-# In[ ]:
+# In[30]:
 
 s = pd.Series(['Aaba', 'Baca', np.nan, 'CcDD'])
 s
 
 
-# In[ ]:
+# In[31]:
 
 lowered = s.str.lower()
 lowered
@@ -315,7 +315,7 @@ lowered
 
 # * Finding out why Gracie could not medal in Sochi! :-) Notice that the `str.findall` returns a `Series`, whose elements are a list.
 
-# In[ ]:
+# In[32]:
 
 s = pd.Series(['Adelina', 'Yuna', 'Carolina', 'Gracie'])
 ends_with_na = s.str.findall(r'.+na$')
@@ -324,12 +324,12 @@ ends_with_na
 
 # * `str.replace()` relies on `re.sub()`.
 
-# In[ ]:
+# In[33]:
 
 s
 
 
-# In[ ]:
+# In[34]:
 
 s.str.replace(r'(.+na)', r'\g<0> medals')
 
